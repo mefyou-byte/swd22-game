@@ -35,7 +35,6 @@ public class Main extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		gameObjects.add(new Sign());
 		player = new Player();
-		player.setPosition(0,0);
 		gameObjects.add(player);
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);

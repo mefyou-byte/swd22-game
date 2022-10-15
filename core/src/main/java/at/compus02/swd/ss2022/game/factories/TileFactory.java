@@ -44,12 +44,6 @@ public class TileFactory extends Factory {
 
     }
 
-    @Override
-    public GameObject[] getObjects() {
-        GameObject[] list = new GameObject[gameObjects.size()];
-        return gameObjects.toArray(list);
-    }
-
     public static TileFactory getInstance()
     {
         if(instance == null){

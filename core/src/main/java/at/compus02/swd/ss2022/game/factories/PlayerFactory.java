@@ -1,13 +1,35 @@
 package at.compus02.swd.ss2022.game.factories;
 
-import at.compus02.swd.ss2022.game.gameobjects.GameObject;
-import at.compus02.swd.ss2022.game.gameobjects.Player;
+import at.compus02.swd.ss2022.game.gameobjects.*;
 
-public class PlayerFactory extends Factory {    //TODO getinstance wie in TileFactory
+public class PlayerFactory extends Factory {
+
+
+    private static PlayerFactory instance = null;
+
+    private PlayerFactory()
+    {
+        return;
+    }
 
     @Override
     public Player create(GameObjectType type){
-        return null;
+
+        Player gameObject=null;
+
+        switch (type){
+            case Player:
+                gameObject = new Player();
+                System.out.println("Player "+ gameObjects.size()+" created");
+            default:
+                System.out.println("Wrong GameObjectType");
+        };
+
+        if(gameObject != null){
+            gameObjects.add(gameObject);
+        }
+
+        return gameObject;
     }
 
     @Override
@@ -15,8 +37,12 @@ public class PlayerFactory extends Factory {    //TODO getinstance wie in TileFa
 
     }
 
-    @Override
-    public GameObject[] getObjects() {
-        return new GameObject[0];
+    public static PlayerFactory getInstance()
+    {
+        if(instance == null){
+            return new PlayerFactory();
+        }
+
+        return instance;
     }
 }

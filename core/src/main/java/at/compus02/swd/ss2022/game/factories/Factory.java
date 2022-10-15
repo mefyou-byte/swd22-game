@@ -14,6 +14,10 @@ public abstract class Factory {
     
     abstract void initialize();
     
-    abstract GameObject[] getObjects();
+    GameObject[] getObjects()
+    {
+        GameObject[] list = new GameObject[gameObjects.size()];
+        return gameObjects.toArray(list);
+    }
 
 }

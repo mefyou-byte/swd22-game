@@ -50,7 +50,7 @@ public class TileFactory extends Factory {
         return gameObjects.toArray(list);
     }
 
-    static TileFactory getInstance()
+    public static TileFactory getInstance()
     {
         if(instance == null){
             return new TileFactory();

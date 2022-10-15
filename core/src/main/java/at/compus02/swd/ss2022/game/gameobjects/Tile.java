@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class Tile implements GameObject{
 
-    private Texture image;
-    private Sprite sprite;
+    protected Texture image;
+    protected Sprite sprite;
 
     @Override
     public abstract void act(float delta);

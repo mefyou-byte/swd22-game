@@ -3,6 +3,7 @@ package at.compus02.swd.ss2022.game.gameobjects;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.sun.tools.javac.util.Convert;
 
 public class Player implements GameObject {
     private Texture image;
@@ -11,6 +12,7 @@ public class Player implements GameObject {
     public Player() {
         image = new Texture("Player.png");
         sprite = new Sprite(image);
+        sprite.setScale((float)0.5);
     }
     @Override
     public void act(float delta) {

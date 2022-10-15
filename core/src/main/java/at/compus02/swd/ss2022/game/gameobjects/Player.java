@@ -1,5 +1,6 @@
 package at.compus02.swd.ss2022.game.gameobjects;
 
+import at.compus02.swd.ss2022.game.input.GameInput;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,6 +18,7 @@ public class Player implements GameObject {
     @Override
     public void act(float delta) {
 
+
     }
 
     @Override
@@ -31,20 +33,20 @@ public class Player implements GameObject {
 
     public void moveUp()
     {
-        sprite.setPosition(sprite.getX(), sprite.getY()+10);
+        setPosition(sprite.getX(), sprite.getY()+10);
     }
 
     public void moveDown()
     {
-        sprite.setPosition(sprite.getX(), sprite.getY()-10);
+        setPosition(sprite.getX(), sprite.getY()-10);
     }
     public void moveRight()
     {
-        sprite.setPosition(sprite.getX()+10, sprite.getY());
+        setPosition(sprite.getX()+10, sprite.getY());
     }
     public void moveLeft()
     {
-        sprite.setPosition(sprite.getX()-10, sprite.getY());
+        setPosition(sprite.getX()-10, sprite.getY());
     }
 
 }

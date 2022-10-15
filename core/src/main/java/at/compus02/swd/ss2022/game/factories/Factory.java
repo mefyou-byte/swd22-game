@@ -3,14 +3,17 @@ package at.compus02.swd.ss2022.game.factories;
 import at.compus02.swd.ss2022.game.gameobjects.GameObject;
 import com.badlogic.gdx.Game;
 
-public interface Factory {
+import java.util.ArrayList;
+
+public abstract class Factory {
+
+
+    protected ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
     
-    GameObjectType type = null;
+    abstract GameObject create(GameObjectType type);
     
-    GameObject create();
+    abstract void initialize();
     
-    void initialize();
-    
-    GameObject[] getObjects();
+    abstract GameObject[] getObjects();
 
 }

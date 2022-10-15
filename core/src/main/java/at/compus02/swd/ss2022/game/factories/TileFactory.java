@@ -1,20 +1,61 @@
 package at.compus02.swd.ss2022.game.factories;
 
-import at.compus02.swd.ss2022.game.gameobjects.GameObject;
+import at.compus02.swd.ss2022.game.gameobjects.*;
 
-public class TileFactory implements Factory{
-    @Override
-    public GameObject create() {
-        return null;
+import java.util.ArrayList;
+
+public class TileFactory extends Factory {
+
+    private static TileFactory instance = null;
+
+    private TileFactory()
+    {
+        return;
     }
 
     @Override
-    public void initialize() {
+    public Tile create(GameObjectType type) {
+
+        Tile gameObject=null;
+
+        switch (type){
+            case Grass:
+                gameObject = new Grass();
+                System.out.println("Grass Tile created");
+            case Water:
+                gameObject = new Water();
+                System.out.println("Water Tile created");
+            case Bush:
+                gameObject = new Bush();
+                System.out.println("Bush Tile created");
+            default:
+                System.out.println("Wrong GameObjectType");
+        };
+
+        if(gameObject != null){
+            gameObjects.add(gameObject);
+        }
+
+        return gameObject;
+    }
+
+    @Override
+    void initialize() {
 
     }
 
     @Override
     public GameObject[] getObjects() {
-        return new GameObject[0];
+        GameObject[] list = new GameObject[gameObjects.size()];
+        return gameObjects.toArray(list);
+    }
+
+    static TileFactory getInstance()
+    {
+        if(instance == null){
+            return new TileFactory();
+        }
+
+        return instance;
     }
 }

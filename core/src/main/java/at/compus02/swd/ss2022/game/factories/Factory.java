@@ -8,14 +8,13 @@ import java.util.ArrayList;
 public abstract class Factory {
 
 
-    protected ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
+    protected ArrayList<GameObject> gameObjects = new ArrayList<>();
     
     abstract GameObject create(GameObjectType type);
     
     abstract void initialize();
     
-    GameObject[] getObjects()
-    {
+    GameObject[] getObjects(){
         GameObject[] list = new GameObject[gameObjects.size()];
         return gameObjects.toArray(list);
     }

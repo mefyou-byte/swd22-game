@@ -1,8 +1,13 @@
 package at.compus02.swd.ss2022.game;
 
+import at.compus02.swd.ss2022.game.factories.Factory;
+import at.compus02.swd.ss2022.game.factories.GameObjectType;
+import at.compus02.swd.ss2022.game.factories.PlayerFactory;
+import at.compus02.swd.ss2022.game.factories.TileFactory;
 import at.compus02.swd.ss2022.game.gameobjects.GameObject;
 import at.compus02.swd.ss2022.game.gameobjects.Player;
 import at.compus02.swd.ss2022.game.gameobjects.Sign;
+import at.compus02.swd.ss2022.game.gameobjects.Tile;
 import at.compus02.swd.ss2022.game.input.GameInput;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -34,8 +39,29 @@ public class Main extends ApplicationAdapter {
 	public void create() {
 		batch = new SpriteBatch();
 		gameObjects.add(new Sign());
-		player = new Player();
-		gameObjects.add(player);
+
+
+		//TODO move to new function?
+		//TODO set position in Tile Class? Similar to Player but random?
+		TileFactory tileFactory = TileFactory.getInstance();
+		tileFactory.create(GameObjectType.Water).setPosition(50, 50);
+		tileFactory.create(GameObjectType.Bush).setPosition(75, 75);
+		tileFactory.create(GameObjectType.Grass).setPosition(100, 100);
+
+		for (GameObject gameObject : tileFactory.getObjects()) {
+			gameObjects.add(gameObject);
+		}
+
+
+		//player = new Player();
+		//gameObjects.add(player);
+
+		PlayerFactory playerFactory = PlayerFactory.getInstance();
+		playerFactory.create(GameObjectType.Player);
+		gameObjects.add(playerFactory.getObjects()[0]);
+
+
+
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		Gdx.input.setInputProcessor(this.gameInput);

@@ -13,26 +13,22 @@ public class Player implements GameObject {
     public Player() {
         image = new Texture("Player.png");
         sprite = new Sprite(image);
-        sprite.setScale((float)0.1);
+        sprite.setScale((float)0.05);
         setPosition(-330,-330);
     }
     @Override
     public void act(float delta) {
 
-        if (GameInput.pressedKeys.contains(GameInput.keys.up))
-        {
+        if (GameInput.pressedKeys.contains(GameInput.keys.up)){
             moveUp();
         }
-        if (GameInput.pressedKeys.contains(GameInput.keys.down))
-        {
+        if (GameInput.pressedKeys.contains(GameInput.keys.down)){
             moveDown();
         }
-        if (GameInput.pressedKeys.contains(GameInput.keys.left))
-        {
+        if (GameInput.pressedKeys.contains(GameInput.keys.left)){
             moveLeft();
         }
-        if (GameInput.pressedKeys.contains(GameInput.keys.right))
-        {
+        if (GameInput.pressedKeys.contains(GameInput.keys.right)){
             moveRight();
         }
     }
@@ -51,7 +47,6 @@ public class Player implements GameObject {
     {
         setPosition(sprite.getX(), sprite.getY()+1);
     }
-
     public void moveDown()
     {
         setPosition(sprite.getX(), sprite.getY()-1);

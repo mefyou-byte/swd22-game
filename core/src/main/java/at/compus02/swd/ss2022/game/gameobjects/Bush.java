@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Bush extends Tile{
 
-    public Bush() {
-        image = new Texture("tile_bush.png");
+    public Bush(){
+        image = new Texture("bush.png");
         sprite = new Sprite(image);
     }
 

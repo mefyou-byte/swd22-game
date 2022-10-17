@@ -5,5 +5,5 @@ public enum GameObjectType {
     Water,
     Bush,
     Player,
-    Enemy;
+    Enemy
 }

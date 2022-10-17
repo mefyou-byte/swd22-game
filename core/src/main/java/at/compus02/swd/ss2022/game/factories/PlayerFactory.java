@@ -7,13 +7,8 @@ public class PlayerFactory extends Factory {
 
     private static PlayerFactory instance = null;
 
-    private PlayerFactory()
-    {
-        return;
-    }
-
     @Override
-    public Player create(GameObjectType type){
+    public Player create(GameObjectType type) {
 
         Player gameObject=null;
 
@@ -21,11 +16,12 @@ public class PlayerFactory extends Factory {
             case Player:
                 gameObject = new Player();
                 System.out.println("Player "+ gameObjects.size()+" created");
+                break;
             default:
                 System.out.println("Wrong GameObjectType");
-        };
+        }
 
-        if(gameObject != null){
+        if(gameObject != null) {
             gameObjects.add(gameObject);
         }
 
@@ -37,8 +33,12 @@ public class PlayerFactory extends Factory {
 
     }
 
-    public static PlayerFactory getInstance()
-    {
+    @Override
+    public GameObject[] getObjects() {
+        return super.getObjects();
+    }
+
+    public static PlayerFactory getInstance() {
         if(instance == null){
             return new PlayerFactory();
         }

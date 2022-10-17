@@ -20,6 +20,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
+import java.util.Random;
+
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
 	private SpriteBatch batch;
@@ -38,21 +40,44 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		gameObjects.add(new Sign());
 
-
-		//TODO move to new function?
-		//TODO set position in Tile Class? Similar to Player but random?
+		//TODO --> MOVE to own function // calls which only handles filling game with objects
+		//Calculation of positioning is based on game field size of 480x480
 		TileFactory tileFactory = TileFactory.getInstance();
-		tileFactory.create(GameObjectType.Water).setPosition(50, 50);
-		tileFactory.create(GameObjectType.Bush).setPosition(75, 75);
-		tileFactory.create(GameObjectType.Grass).setPosition(100, 100);
 
-		//TODO fill complete map with tiles
+		Random random = new Random();
+
+		for (int i = -240; i < 240; i += 32) {
+			for (int j = -240; j < 240; j += 32) {
+
+				if (i == -16 && j == -16) {
+					//grass for sign
+					tileFactory.create(GameObjectType.Grass).setPosition(i, j);
+					continue;
+				}
+				int randomInt = random.nextInt(100);
+
+				if (randomInt < 15) {
+					tileFactory.create(GameObjectType.Water).setPosition(i, j);
+				} else if (randomInt < 35) {
+					// add Grass below Bush --> looks better
+					tileFactory.create(GameObjectType.Grass).setPosition(i, j);
+					tileFactory.create(GameObjectType.Bush).setPosition(i, j);
+				} else {
+					tileFactory.create(GameObjectType.Grass).setPosition(i, j);
+				}
+			}
+		}
 
 		for (GameObject gameObject : tileFactory.getObjects()) {
 			gameObjects.add(gameObject);
 		}
+
+
+		//set sign exactly in the center of the game
+		Sign sign = new Sign();
+		sign.setPosition(-16, -16);
+		gameObjects.add(sign);
 
 
 		//player = new Player();

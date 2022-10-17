@@ -13,7 +13,7 @@ public class Player implements GameObject {
     public Player() {
         image = new Texture("Player.png");
         sprite = new Sprite(image);
-        sprite.setScale((float)0.05);
+        sprite.setScale((float)0.035);
         setPosition(-330,-330);
     }
     @Override

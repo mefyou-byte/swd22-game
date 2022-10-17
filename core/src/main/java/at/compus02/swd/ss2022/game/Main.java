@@ -48,6 +48,8 @@ public class Main extends ApplicationAdapter {
 		tileFactory.create(GameObjectType.Bush).setPosition(75, 75);
 		tileFactory.create(GameObjectType.Grass).setPosition(100, 100);
 
+		//TODO fill complete map with tiles
+
 		for (GameObject gameObject : tileFactory.getObjects()) {
 			gameObjects.add(gameObject);
 		}

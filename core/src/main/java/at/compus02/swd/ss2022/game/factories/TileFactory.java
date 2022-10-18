@@ -5,37 +5,48 @@ import at.compus02.swd.ss2022.game.gameobjects.*;
 
 public class TileFactory extends Factory {
 
-    private static TileFactory instance = null;
+    private static TileFactory instance;
 
+    public TileFactory() {
+    }
+
+    public static TileFactory getInstance() {
+        if (instance == null) {
+            instance = new TileFactory();
+        }
+        return instance;
+    }
+
+
+    //TODO - Change create that it has input for x y position ?
     @Override
-    public Tile create(GameObjectType type){
+    public Tile create(GameObjectType type) {
 
-        Tile gameObject = null;
+        Tile tile = null;
 
-
-        switch (type){
-            case Grass:
-                gameObject = new Grass();
-                System.out.println("Grass Tile created");
+        switch (type) {
+            case GRASS:
+                tile = new Grass();
                 break;
-            case Water:
-                gameObject = new Water();
-                System.out.println("Water Tile created");
+            case WATER:
+                tile = new Water();
                 break;
-            case Bush:
-                gameObject = new Bush();
-                System.out.println("Bush Tile created");
+            case BUSH:
+                tile = new Bush();
                 break;
             default:
                 System.out.println("Wrong GameObjectType: " + type);
-                break;
         }
 
-        if(gameObject != null){
-            gameObjects.add(gameObject);
+        if (tile != null) {
+            gameObjects.add(tile);
         }
 
-        return gameObject;
+        return tile;
+    }
+
+    @Override
+    void initialize() {
     }
 
     @Override
@@ -43,16 +54,7 @@ public class TileFactory extends Factory {
         return super.getObjects();
     }
 
-    @Override
-    void initialize(){
-
-    }
 
 
-    public static TileFactory getInstance(){
-        if(instance == null){
-            return new TileFactory();
-        }
-        return instance;
-    }
+
 }

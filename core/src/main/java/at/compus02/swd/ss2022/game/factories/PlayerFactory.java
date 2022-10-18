@@ -4,33 +4,38 @@ import at.compus02.swd.ss2022.game.gameobjects.*;
 
 public class PlayerFactory extends Factory {
 
+    private static PlayerFactory instance;
 
-    private static PlayerFactory instance = null;
+    public PlayerFactory() {
+    }
+
+    public static PlayerFactory getInstance() {
+        if (instance == null) {
+            instance = new PlayerFactory();
+        }
+        return instance;
+    }
 
     @Override
     public Player create(GameObjectType type) {
 
-        Player gameObject=null;
+        Player player = null;
 
-        switch (type){
-            case Player:
-                gameObject = new Player();
-                System.out.println("Player "+ gameObjects.size()+" created");
-                break;
-            default:
-                System.out.println("Wrong GameObjectType");
+        if (type == GameObjectType.PLAYER) {
+            player = new Player();
+        } else {
+            System.out.println("Wrong GameObjectType");
         }
 
-        if(gameObject != null) {
-            gameObjects.add(gameObject);
+        if (player != null) {
+            gameObjects.add(player);
         }
 
-        return gameObject;
+        return player;
     }
 
     @Override
     public void initialize() {
-
     }
 
     @Override
@@ -38,11 +43,5 @@ public class PlayerFactory extends Factory {
         return super.getObjects();
     }
 
-    public static PlayerFactory getInstance() {
-        if(instance == null){
-            return new PlayerFactory();
-        }
 
-        return instance;
-    }
 }

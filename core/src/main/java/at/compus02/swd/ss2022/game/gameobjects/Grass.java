@@ -10,11 +10,12 @@ public class Grass extends Tile {
     public Grass() {
         image = new Texture("tile_gras.png");
         sprite = new Sprite(image);
+        System.out.println("Grass Tile created");
     }
+
     @Override
     public void act(float delta) {
         // TODO Auto-generated method stub
-
     }
 
 }

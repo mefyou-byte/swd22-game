@@ -4,10 +4,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public abstract class Tile implements GameObject{
+public abstract class Tile implements GameObject {
 
     protected Texture image;
     protected Sprite sprite;
+
+
+    public Tile() {
+
+    }
 
     @Override
     public abstract void act(float delta);

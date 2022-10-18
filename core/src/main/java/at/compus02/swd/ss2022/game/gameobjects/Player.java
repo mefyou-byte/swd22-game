@@ -7,28 +7,30 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.sun.tools.javac.util.Convert;
 
 public class Player implements GameObject {
-    private Texture image;
-    private Sprite sprite;
+    private final Texture image;
+    private final Sprite sprite;
 
     public Player() {
         image = new Texture("Player.png");
         sprite = new Sprite(image);
-        sprite.setScale((float)0.035);
-        setPosition(-330,-330);
+        sprite.setScale((float) 0.035);
+        setPosition(-330, -330);
+        System.out.println("Player created");
     }
+
     @Override
     public void act(float delta) {
 
-        if (GameInput.pressedKeys.contains(GameInput.keys.up)){
+        if (GameInput.pressedKeys.contains(GameInput.keys.up)) {
             moveUp();
         }
-        if (GameInput.pressedKeys.contains(GameInput.keys.down)){
+        if (GameInput.pressedKeys.contains(GameInput.keys.down)) {
             moveDown();
         }
-        if (GameInput.pressedKeys.contains(GameInput.keys.left)){
+        if (GameInput.pressedKeys.contains(GameInput.keys.left)) {
             moveLeft();
         }
-        if (GameInput.pressedKeys.contains(GameInput.keys.right)){
+        if (GameInput.pressedKeys.contains(GameInput.keys.right)) {
             moveRight();
         }
     }
@@ -43,21 +45,20 @@ public class Player implements GameObject {
         sprite.draw(batch);
     }
 
-    public void moveUp()
-    {
-        setPosition(sprite.getX(), sprite.getY()+1);
+    public void moveUp() {
+        setPosition(sprite.getX(), sprite.getY() + 1);
     }
-    public void moveDown()
-    {
-        setPosition(sprite.getX(), sprite.getY()-1);
+
+    public void moveDown() {
+        setPosition(sprite.getX(), sprite.getY() - 1);
     }
-    public void moveRight()
-    {
-        setPosition(sprite.getX()+1, sprite.getY());
+
+    public void moveRight() {
+        setPosition(sprite.getX() + 1, sprite.getY());
     }
-    public void moveLeft()
-    {
-        setPosition(sprite.getX()-1, sprite.getY());
+
+    public void moveLeft() {
+        setPosition(sprite.getX() - 1, sprite.getY());
     }
 
 }

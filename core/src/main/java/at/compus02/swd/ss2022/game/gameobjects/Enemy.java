@@ -1,10 +1,8 @@
 package at.compus02.swd.ss2022.game.gameobjects;
 
-import at.compus02.swd.ss2022.game.input.GameInput;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.sun.tools.javac.util.Convert;
 
 public class Enemy implements GameObject {
     private final Texture image;

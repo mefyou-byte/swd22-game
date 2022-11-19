@@ -3,7 +3,6 @@ package at.compus02.swd.ss2022.game.input;
 import com.badlogic.gdx.InputAdapter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class GameInput extends InputAdapter {
 
@@ -25,7 +24,7 @@ public class GameInput extends InputAdapter {
     @Override
     public boolean keyUp(int keycode) {
 
-        //System.out.println("Key Down: " + keycode);
+        // System.out.println("Key Down: " + keycode);
 
         for (keys allowedKey : keys.values()) {
             if (allowedKey.getKeycode() == keycode && pressedKeys.contains(allowedKey)) {
@@ -36,7 +35,6 @@ public class GameInput extends InputAdapter {
 
         return true;
     }
-
 
     public enum keys {
         up(19),

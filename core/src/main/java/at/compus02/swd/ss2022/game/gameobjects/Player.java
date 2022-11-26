@@ -1,5 +1,6 @@
 package at.compus02.swd.ss2022.game.gameobjects;
 
+import at.compus02.swd.ss2022.game.assetRepository.AssetRepository;
 import at.compus02.swd.ss2022.game.command.MoveDownCommand;
 import at.compus02.swd.ss2022.game.command.MoveLeftCommand;
 import at.compus02.swd.ss2022.game.command.MoveRightCommand;
@@ -16,7 +17,8 @@ public class Player implements GameObject {
 
 
     public Player() {
-        image = new Texture("Player.png");
+        AssetRepository repo = AssetRepository.getInstance();
+        image = repo.getTexture("player");
         sprite = new Sprite(image);
         sprite.setScale((float) 0.035);
         setPosition(-330, -330);

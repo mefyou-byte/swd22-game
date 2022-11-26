@@ -1,5 +1,6 @@
 package at.compus02.swd.ss2022.game.gameobjects;
 
+import at.compus02.swd.ss2022.game.assetRepository.AssetRepository;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,7 +10,8 @@ public class Enemy implements GameObject {
     private final Sprite sprite;
 
     public Enemy() {
-        image = new Texture("Enemy.png");
+        AssetRepository repo = AssetRepository.getInstance();
+        image = repo.getTexture("enemy");
         sprite = new Sprite(image);
     }
 

@@ -1,12 +1,13 @@
 package at.compus02.swd.ss2022.game.gameobjects;
 
-import com.badlogic.gdx.graphics.Texture;
+import at.compus02.swd.ss2022.game.assetRepository.AssetRepository;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Bush extends Tile {
 
     public Bush() {
-        image = new Texture("bush.png");
+        AssetRepository repo = AssetRepository.getInstance();
+        image = repo.getTexture("bush");
         sprite = new Sprite(image);
         System.out.println("Bush Tile created");
     }

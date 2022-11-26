@@ -1,5 +1,6 @@
 package at.compus02.swd.ss2022.game;
 
+import at.compus02.swd.ss2022.game.assetRepository.AssetRepository;
 import at.compus02.swd.ss2022.game.factories.GameObjectType;
 import at.compus02.swd.ss2022.game.factories.PlayerFactory;
 import at.compus02.swd.ss2022.game.factories.TileFactory;
@@ -34,6 +35,8 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void create() {
+        AssetRepository repository = AssetRepository.getInstance();
+        repository.preloadAssets();
         batch = new SpriteBatch();
 
         fillFieldWithTiles();
@@ -117,6 +120,8 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void dispose() {
+        AssetRepository repository = AssetRepository.getInstance();
+        repository.dispose();
         batch.dispose();
     }
 

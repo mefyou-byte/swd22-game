@@ -47,16 +47,19 @@ public class Main extends ApplicationAdapter {
 
 
         //TODO - move out to separate function ?
-        PlayerFactory playerFactory = PlayerFactory.getInstance();
-        playerFactory.create(GameObjectType.PLAYER);
-        gameObjects.add(playerFactory.getObjects()[0]);
-
+        // moved to function createPlayer
+        createPlayer();
 
         font = new BitmapFont();
         font.setColor(Color.WHITE);
         Gdx.input.setInputProcessor(this.gameInput);
     }
 
+    private void createPlayer(){
+        PlayerFactory playerFactory = PlayerFactory.getInstance();
+        playerFactory.create(GameObjectType.PLAYER);
+        gameObjects.add(playerFactory.getObjects()[0]);
+    }
     private void fillFieldWithTiles() {
         Random random = new Random();
 

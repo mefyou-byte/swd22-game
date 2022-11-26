@@ -34,6 +34,8 @@ public class Player implements GameObject {
         MoveRightCommand moveRight = new MoveRightCommand(this);
         MoveLeftCommand moveLeft = new MoveLeftCommand(this);
 
+
+
         if (GameInput.pressedKeys.contains(GameInput.keys.up)) {
             moveUp.execute();
         }
@@ -47,6 +49,7 @@ public class Player implements GameObject {
            moveRight.execute();
         }
     }
+
 
     @Override
     public void setPosition(float x, float y) {

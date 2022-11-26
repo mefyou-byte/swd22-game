@@ -10,4 +10,14 @@ public class UiGameObserver implements GameObserver{
     public void onPlayerMovedDown() {
 
     }
+
+    @Override
+    public void onPlayerMovedLeft() {
+
+    }
+
+    @Override
+    public void onPlayerMovedRight() {
+
+    }
 }

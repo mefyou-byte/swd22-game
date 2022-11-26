@@ -42,6 +42,9 @@ public class GameInput extends InputAdapter {
         left(21),
         right(22);
 
+
+
+
         private final int keycode;
 
         keys(int keycode) {

@@ -4,12 +4,27 @@ public class MyLogic implements GameObservable{
 
 
     @Override
+    public void registerObservable() {
+
+    }
+
+    @Override
     public void onPlayerMovedUp() {
 
     }
 
     @Override
     public void onPlayerMovedDown() {
+
+    }
+
+    @Override
+    public void onPlayerMovedLeft() {
+
+    }
+
+    @Override
+    public void onPlayerMovedRight() {
 
     }
 }

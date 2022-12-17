@@ -8,6 +8,7 @@ import at.compus02.swd.ss2022.game.command.MoveUpCommand;
 import at.compus02.swd.ss2022.game.command.SpaceBarCommand;
 import at.compus02.swd.ss2022.game.input.GameInput;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,11 +27,13 @@ public class Player implements GameObject {
     private final int buffOffsetX = 60;
     private final int buffOffsetY = 115;
 
+    private ArrayList<Position> waterTilesPositions = new ArrayList<Position>();
+
     public Player() {
         AssetRepository repo = AssetRepository.getInstance();
         image = repo.getTexture("player");
         sprite = new Sprite(image);
-        sprite.setScale((float) 0.035);
+        sprite.setScale((float) 0.03);
         Texture imageBuff = repo.getTexture("fire");
         spriteBuff = new Sprite(imageBuff);
         spriteBuff.setScale((float) 0.025);
@@ -40,8 +43,8 @@ public class Player implements GameObject {
     }
 
     @Override
-    public void act(float delta) {
-
+    public void act(float delta, ArrayList<Position> waterTilesPositions) {
+        this.waterTilesPositions = waterTilesPositions;
         MoveUpCommand moveUp = new MoveUpCommand(this);
         MoveDownCommand moveDown = new MoveDownCommand(this);
         MoveRightCommand moveRight = new MoveRightCommand(this);
@@ -67,6 +70,22 @@ public class Player implements GameObject {
 
     @Override
     public void setPosition(float x, float y) {
+        boolean isAllowedToMoveOnTile = true;
+        System.out.println(waterTilesPositions.size());
+        for (Position position : waterTilesPositions) {
+            System.out.println("x " + x);
+            System.out.println("y " + y);
+            System.out.println("position x " + position.X);
+            System.out.println("position y " + position.Y);
+            System.out.println("----------------------");
+            if ((x >= position.X && x <= (position.X + 32))
+                    && (y >= position.Y && y <= (position.Y + 32))) {
+                isAllowedToMoveOnTile = false;
+                return;
+            }
+        }
+        if (!isAllowedToMoveOnTile)
+            return;
         sprite.setPosition(x, y);
         spriteBuff.setPosition(x + buffOffsetX, y + buffOffsetY);
     }
@@ -112,5 +131,9 @@ public class Player implements GameObject {
             this.activateBerserkerMode();
         } else
             this.spriteBuff.setAlpha(0);
+    }
+
+    public boolean getIsBuffActivatedAndVisible() {
+        return this.isBuffActivatedAndVisible;
     }
 }

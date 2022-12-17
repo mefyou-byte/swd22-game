@@ -1,6 +1,9 @@
 package at.compus02.swd.ss2022.game.gameobjects;
 
 import at.compus02.swd.ss2022.game.assetRepository.AssetRepository;
+
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Grass extends Tile {
@@ -13,7 +16,7 @@ public class Grass extends Tile {
     }
 
     @Override
-    public void act(float delta) {
+    public void act(float delta, ArrayList<Position> waterTilesPositions) {
         // TODO Auto-generated method stub
     }
 

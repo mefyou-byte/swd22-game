@@ -23,13 +23,18 @@ public class Player implements GameObject {
     private final int berserkerModeDuration = 5000;
     private boolean isBuffActivatedAndVisible = false;
 
+    private final int buffOffsetX = 60;
+    private final int buffOffsetY = 115;
+
     public Player() {
         AssetRepository repo = AssetRepository.getInstance();
         image = repo.getTexture("player");
         sprite = new Sprite(image);
         sprite.setScale((float) 0.035);
-        Texture imageBuff = repo.getTexture("player");
+        Texture imageBuff = repo.getTexture("fire");
         spriteBuff = new Sprite(imageBuff);
+        spriteBuff.setScale((float) 0.025);
+        spriteBuff.setAlpha(0);
         setPosition(-330, -330);
         System.out.println("Player created");
     }
@@ -57,20 +62,18 @@ public class Player implements GameObject {
         }
         if (GameInput.pressedKeys.contains(GameInput.keys.space)) {
             spaceBar.execute();
-            this.activateBerserkerMode();
         }
     }
 
     @Override
     public void setPosition(float x, float y) {
         sprite.setPosition(x, y);
-        spriteBuff.setPosition(x, y);
+        spriteBuff.setPosition(x + buffOffsetX, y + buffOffsetY);
     }
 
     @Override
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
-        // spriteBuff.setAlpha(0);
         spriteBuff.draw(batch);
     }
 
@@ -104,9 +107,10 @@ public class Player implements GameObject {
 
     public void setIsBuffActivatedAndVisible(boolean value) {
         this.isBuffActivatedAndVisible = value;
-        if (value)
+        if (value) {
             this.spriteBuff.setAlpha(1);
-        else
+            this.activateBerserkerMode();
+        } else
             this.spriteBuff.setAlpha(0);
     }
 }

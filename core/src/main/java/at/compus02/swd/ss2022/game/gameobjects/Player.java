@@ -18,14 +18,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Player implements GameObject {
     private final Texture image;
     public final Sprite sprite;
+    public final Sprite spriteBuff;
 
     private final int berserkerModeDuration = 5000;
+    private boolean isBuffActivatedAndVisible = false;
 
     public Player() {
         AssetRepository repo = AssetRepository.getInstance();
         image = repo.getTexture("player");
         sprite = new Sprite(image);
         sprite.setScale((float) 0.035);
+        Texture imageBuff = repo.getTexture("player");
+        spriteBuff = new Sprite(imageBuff);
         setPosition(-330, -330);
         System.out.println("Player created");
     }
@@ -60,11 +64,14 @@ public class Player implements GameObject {
     @Override
     public void setPosition(float x, float y) {
         sprite.setPosition(x, y);
+        spriteBuff.setPosition(x, y);
     }
 
     @Override
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
+        // spriteBuff.setAlpha(0);
+        spriteBuff.draw(batch);
     }
 
     public void moveUp() {
@@ -88,10 +95,18 @@ public class Player implements GameObject {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                sprite.setAlpha(1);
+                setIsBuffActivatedAndVisible(false);
                 timer.cancel();
             }
         };
         timer.schedule(task, berserkerModeDuration);
+    }
+
+    public void setIsBuffActivatedAndVisible(boolean value) {
+        this.isBuffActivatedAndVisible = value;
+        if (value)
+            this.spriteBuff.setAlpha(1);
+        else
+            this.spriteBuff.setAlpha(0);
     }
 }

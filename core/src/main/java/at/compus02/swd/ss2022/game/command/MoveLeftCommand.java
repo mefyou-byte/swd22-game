@@ -11,6 +11,6 @@ public class MoveLeftCommand implements Commands {
 
     @Override
     public void execute() {
-        this.player.sprite.setPosition(this.player.sprite.getX()-1, this.player.sprite.getY());
+        this.player.setPosition(this.player.sprite.getX() - 1, this.player.sprite.getY());
     }
 }

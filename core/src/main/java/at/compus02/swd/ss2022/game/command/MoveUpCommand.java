@@ -12,6 +12,6 @@ public class MoveUpCommand implements Commands {
 
     @Override
     public void execute() {
-        this.player.sprite.setPosition(this.player.sprite.getX(), this.player.sprite.getY() +1);
+        this.player.setPosition(this.player.sprite.getX(), this.player.sprite.getY() + 1);
     }
 }

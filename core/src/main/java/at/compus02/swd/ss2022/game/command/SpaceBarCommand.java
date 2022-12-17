@@ -12,7 +12,7 @@ public class SpaceBarCommand implements Commands {
 
     @Override
     public void execute() {
-        this.player.sprite.setAlpha(0.25f);
+        this.player.setIsBuffActivatedAndVisible(true);
     }
 
 }

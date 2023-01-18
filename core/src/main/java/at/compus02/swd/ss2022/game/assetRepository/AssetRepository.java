@@ -22,7 +22,7 @@ public class AssetRepository {
         textures = new HashMap<String, Texture>();
         textures.put("water", new Texture("tile_water.png"));
         textures.put("bush", new Texture("bush.png"));
-        textures.put("gras", new Texture("tile_gras.png"));
+        textures.put("grass", new Texture("tile_grass.png"));
         textures.put("player", new Texture("Player.png"));
         textures.put("sign", new Texture("sign.png"));
         textures.put("fire", new Texture("fire.png"));

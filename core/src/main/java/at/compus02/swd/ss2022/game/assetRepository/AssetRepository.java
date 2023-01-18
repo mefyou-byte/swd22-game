@@ -26,6 +26,7 @@ public class AssetRepository {
         textures.put("player", new Texture("Player.png"));
         textures.put("sign", new Texture("sign.png"));
         textures.put("fire", new Texture("fire.png"));
+        //textures.put("particle", new Texture("berserk.particles"));
         // textures.put("enemy", new Texture("Enemy.png"));
     }
 

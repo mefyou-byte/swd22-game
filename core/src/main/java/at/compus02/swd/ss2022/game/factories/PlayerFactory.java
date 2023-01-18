@@ -19,17 +19,15 @@ public class PlayerFactory extends Factory {
     @Override
     public Player create(GameObjectType type) {
 
-        Player player = null;
+        Player player;
 
         if (type == GameObjectType.PLAYER) {
             player = new Player();
         } else {
-            System.out.println("Wrong GameObjectType");
+            throw new IllegalArgumentException("Invalid GameObjectType: " + type);
         }
 
-        if (player != null) {
-            gameObjects.add(player);
-        }
+        gameObjects.add(player);
 
         return player;
     }

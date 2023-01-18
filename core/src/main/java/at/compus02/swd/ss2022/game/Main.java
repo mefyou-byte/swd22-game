@@ -36,6 +36,7 @@ public class Main extends ApplicationAdapter {
     private BitmapFont font;
     private Player player;
     private ArrayList<Position> waterTilesPositions = new ArrayList<Position>();
+    private static final float TILE_WIDTH = 32;
 
     @Override
     public void create() {
@@ -49,8 +50,7 @@ public class Main extends ApplicationAdapter {
         sign.setPosition(-16, -16); // set sign exactly in the center of the game
         gameObjects.add(sign);
 
-        // TODO - move out to separate function ?
-        // moved to function createPlayer
+
         createPlayer();
 
         font = new BitmapFont();
@@ -64,36 +64,69 @@ public class Main extends ApplicationAdapter {
         gameObjects.add(playerFactory.getObjects()[0]);
     }
 
+
     private void fillFieldWithTiles() {
         Random random = new Random();
 
-        for (float i = -1 * viewport.getMinWorldWidth() / 2; i < viewport.getMaxWorldWidth(); i += 32) {
-            for (float j = -1 * viewport.getMinWorldHeight() / 2; j < viewport.getMaxWorldHeight(); j += 32) {
+        float x_from = -1 * viewport.getMinWorldWidth() / 2;
+        float x_to = viewport.getMaxWorldWidth();
+        float y_from = -1 * viewport.getMinWorldHeight() / 2;
+        float y_to = viewport.getMaxWorldHeight();
 
-                if (i == -16 && j == -16) {
+        float x = x_from;
+
+
+
+        System.out.println("x_from: " + x_from);
+        System.out.println("x_to: " + x_to);
+        System.out.println("y_from: " + y_from);
+        System.out.println("y_to: " + y_to);
+
+        while (x < x_to){
+            float y = y_from;
+
+            while (y < y_to){
+
+                /*
+                if (x == -TILE_WIDTH / 2 && y == -TILE_WIDTH/2) {
                     // grass for sign // center of the field
-                    TileFactory.getInstance().create(GameObjectType.GRASS).setPosition(i, j);
+                    TileFactory.getInstance().create(GameObjectType.GRASS).setPosition(x, y);
                     continue;
                 }
+                */
+
+
                 int randomInt = random.nextInt(100);
 
                 if (randomInt < 15) {
-                    TileFactory.getInstance().create(GameObjectType.WATER).setPosition(i, j);
-                    waterTilesPositions.add(new Position(i, j));
+                    TileFactory.getInstance().create(GameObjectType.WATER).setPosition(x, y);
+                    waterTilesPositions.add(new Position(x, y));
                 } else if (randomInt < 35) {
                     // add Grass below Bush --> looks better
-                    TileFactory.getInstance().create(GameObjectType.GRASS).setPosition(i, j);
+                    TileFactory.getInstance().create(GameObjectType.GRASS).setPosition(x, y);
                     // TileFactory.getInstance().create(GameObjectType.BUSH).setPosition(i, j);
                 } else {
-                    TileFactory.getInstance().create(GameObjectType.GRASS).setPosition(i, j);
+                    TileFactory.getInstance().create(GameObjectType.GRASS).setPosition(x, y);
                 }
+
+
+                y += TILE_WIDTH;
             }
+
+            x += TILE_WIDTH;
         }
 
         for (GameObject gameObject : TileFactory.getInstance().getObjects()) {
             gameObjects.add(gameObject);
         }
+
     }
+
+
+
+
+
+
 
     private void act(float delta) {
         for (GameObject gameObject : gameObjects) {

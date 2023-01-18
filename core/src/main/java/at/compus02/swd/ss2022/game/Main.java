@@ -35,8 +35,9 @@ public class Main extends ApplicationAdapter {
     private float deltaAccumulator = 0;
     private BitmapFont font;
     private Player player;
-    private ArrayList<Position> waterTilesPositions = new ArrayList<Position>();
+    private ArrayList<Position> waterTilesPositions = new ArrayList<>();
     private static final float TILE_WIDTH = 32;
+    private static final float TILE_HEIGHT = 32;
 
     @Override
     public void create() {
@@ -87,15 +88,6 @@ public class Main extends ApplicationAdapter {
 
             while (y < y_to){
 
-                /*
-                if (x == -TILE_WIDTH / 2 && y == -TILE_WIDTH/2) {
-                    // grass for sign // center of the field
-                    TileFactory.getInstance().create(GameObjectType.GRASS).setPosition(x, y);
-                    continue;
-                }
-                */
-
-
                 int randomInt = random.nextInt(100);
 
                 if (randomInt < 15) {
@@ -109,13 +101,13 @@ public class Main extends ApplicationAdapter {
                     TileFactory.getInstance().create(GameObjectType.GRASS).setPosition(x, y);
                 }
 
-
-                y += TILE_WIDTH;
+                y += TILE_HEIGHT;
             }
 
             x += TILE_WIDTH;
         }
 
+        
         for (GameObject gameObject : TileFactory.getInstance().getObjects()) {
             gameObjects.add(gameObject);
         }

@@ -17,8 +17,6 @@ public class TileFactory extends Factory {
         return instance;
     }
 
-
-    //TODO - Change create that it has input for x y position ?
     @Override
     public Tile create(GameObjectType type) {
 

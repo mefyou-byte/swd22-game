@@ -11,7 +11,7 @@ public class Water extends Tile {
         AssetRepository repo = AssetRepository.getInstance();
         image = repo.getTexture("water");
         sprite = new Sprite(image);
-        System.out.println("Water Tile created");
+        //System.out.println("Water Tile created");
     }
 
     @Override

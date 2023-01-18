@@ -11,4 +11,5 @@ public interface GameObject {
     void setPosition(float x, float y);
 
     void draw(SpriteBatch batch);
+
 }

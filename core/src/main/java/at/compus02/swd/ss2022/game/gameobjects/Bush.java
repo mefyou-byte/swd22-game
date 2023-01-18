@@ -12,7 +12,7 @@ public class Bush extends Tile {
         AssetRepository repo = AssetRepository.getInstance();
         image = repo.getTexture("bush");
         sprite = new Sprite(image);
-        System.out.println("Bush Tile created");
+        //System.out.println("Bush Tile created");
     }
 
     @Override

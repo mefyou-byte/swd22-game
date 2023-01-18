@@ -1,6 +1,10 @@
 package at.compus02.swd.ss2022.game;
 
+import at.compus02.swd.ss2022.game.GameObserver.PlayerPositionObserver;
 import at.compus02.swd.ss2022.game.assetRepository.AssetRepository;
+import at.compus02.swd.ss2022.game.common.ConsoleLogger;
+import at.compus02.swd.ss2022.game.common.Logger;
+import at.compus02.swd.ss2022.game.common.UserInterfaceLogger;
 import at.compus02.swd.ss2022.game.factories.GameObjectType;
 import at.compus02.swd.ss2022.game.factories.PlayerFactory;
 import at.compus02.swd.ss2022.game.factories.TileFactory;
@@ -36,8 +40,11 @@ public class Main extends ApplicationAdapter {
     private BitmapFont font;
     private Player player;
     private ArrayList<Position> waterTilesPositions = new ArrayList<>();
-    private static final float TILE_WIDTH = 32;
-    private static final float TILE_HEIGHT = 32;
+    public static final float TILE_WIDTH = 32;
+    public static final float TILE_HEIGHT = 32;
+
+    private UserInterfaceLogger userInterfaceLogger;
+    private ConsoleLogger consoleLogger;
 
 
     @Override
@@ -46,14 +53,17 @@ public class Main extends ApplicationAdapter {
         repository.preloadAssets();
         batch = new SpriteBatch();
 
+
         fillFieldWithTiles();
 
-        Sign sign = new Sign();
-        sign.setPosition(-16, -16); // set sign exactly in the center of the game
-        gameObjects.add(sign);
-
-
         createPlayer();
+
+        initializeLogger();
+
+        initializeObservers();
+
+
+
 
         font = new BitmapFont();
         font.setColor(Color.WHITE);
@@ -66,6 +76,19 @@ public class Main extends ApplicationAdapter {
         gameObjects.add(playerFactory.getObjects()[0]);
     }
 
+    private void initializeLogger() {
+        userInterfaceLogger = UserInterfaceLogger.getInstance();
+        consoleLogger = ConsoleLogger.getInstance();
+    }
+
+    private void initializeObservers() {
+        Player player = (Player) PlayerFactory.getInstance().getObjects()[0];
+        PlayerPositionObserver playerPositionObserverUI = new PlayerPositionObserver(userInterfaceLogger);
+        PlayerPositionObserver playerPositionObserverConsole = new PlayerPositionObserver(consoleLogger);
+        player.addObserver(playerPositionObserverUI);
+        player.addObserver(playerPositionObserverConsole);
+
+    }
 
     private void fillFieldWithTiles() {
         Random random = new Random();
@@ -110,8 +133,8 @@ public class Main extends ApplicationAdapter {
             gameObjects.add(gameObject);
         }
 
-    }
 
+    }
 
 
     private void act(float delta) {
@@ -126,7 +149,9 @@ public class Main extends ApplicationAdapter {
         for (GameObject gameObject : gameObjects) {
             gameObject.draw(batch);
         }
-        font.draw(batch, "Hello Game", -220, -220);
+
+        userInterfaceLogger.draw(batch);
+
         batch.end();
     }
 

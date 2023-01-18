@@ -1,5 +1,6 @@
 package at.compus02.swd.ss2022.game.factories;
 
+import at.compus02.swd.ss2022.game.GameObserver.PlayerPositionObserver;
 import at.compus02.swd.ss2022.game.gameobjects.*;
 
 public class PlayerFactory extends Factory {
@@ -16,8 +17,11 @@ public class PlayerFactory extends Factory {
         return instance;
     }
 
+
+
     @Override
     public Player create(GameObjectType type) {
+
 
         Player player;
 
@@ -28,6 +32,8 @@ public class PlayerFactory extends Factory {
         }
 
         gameObjects.add(player);
+
+
 
         return player;
     }

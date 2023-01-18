@@ -1,5 +1,7 @@
 package at.compus02.swd.ss2022.game.gameobjects;
 
+import at.compus02.swd.ss2022.game.GameObserver.PlayerPositionObserver;
+import at.compus02.swd.ss2022.game.GameObserver.PositionObserver;
 import at.compus02.swd.ss2022.game.assetRepository.AssetRepository;
 import at.compus02.swd.ss2022.game.command.MoveDownCommand;
 import at.compus02.swd.ss2022.game.command.MoveLeftCommand;
@@ -9,6 +11,7 @@ import at.compus02.swd.ss2022.game.command.SpaceBarCommand;
 import at.compus02.swd.ss2022.game.input.GameInput;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -16,18 +19,37 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import static at.compus02.swd.ss2022.game.Main.TILE_WIDTH;
+import static at.compus02.swd.ss2022.game.Main.TILE_HEIGHT;
+
+
 public class Player implements GameObject {
     private final Texture image;
     public final Sprite sprite;
+
+    private float posX;
+    private float posY;
+
+
+
     public final Sprite spriteBuff;
 
     private final int berserkerModeDuration = 5000;
     private boolean isBuffActivatedAndVisible = false;
-
     private final int buffOffsetX = 60;
     private final int buffOffsetY = 115;
 
     private ArrayList<Position> waterTilesPositions = new ArrayList<Position>();
+
+
+
+
+    private List<PositionObserver> observerList = new ArrayList<>();
+
+
+
+
+
 
     public Player() {
         AssetRepository repo = AssetRepository.getInstance();
@@ -44,7 +66,9 @@ public class Player implements GameObject {
 
     @Override
     public void act(float delta, ArrayList<Position> waterTilesPositions) {
+
         this.waterTilesPositions = waterTilesPositions;
+
         MoveUpCommand moveUp = new MoveUpCommand(this);
         MoveDownCommand moveDown = new MoveDownCommand(this);
         MoveRightCommand moveRight = new MoveRightCommand(this);
@@ -70,24 +94,36 @@ public class Player implements GameObject {
 
     @Override
     public void setPosition(float x, float y) {
+
         boolean isAllowedToMoveOnTile = true;
-        System.out.println(waterTilesPositions.size());
+
         for (Position position : waterTilesPositions) {
-            System.out.println("x " + x);
-            System.out.println("y " + y);
-            System.out.println("position x " + position.X);
-            System.out.println("position y " + position.Y);
-            System.out.println("----------------------");
-            if ((x >= position.X && x <= (position.X + 32))
-                    && (y >= position.Y && y <= (position.Y + 32))) {
+            if ((x >= position.X && x <= (position.X + TILE_WIDTH))
+                    && (y >= position.Y && y <= (position.Y + TILE_HEIGHT))) {
                 isAllowedToMoveOnTile = false;
                 return;
             }
         }
         if (!isAllowedToMoveOnTile)
             return;
+
+
+        posX = x;
+        posY = y;
         sprite.setPosition(x, y);
         spriteBuff.setPosition(x + buffOffsetX, y + buffOffsetY);
+
+
+
+
+        for (PositionObserver observer : this.observerList) {
+            observer.update(x, y);
+        }
+
+
+
+
+
     }
 
     @Override
@@ -135,5 +171,32 @@ public class Player implements GameObject {
 
     public boolean getIsBuffActivatedAndVisible() {
         return this.isBuffActivatedAndVisible;
+    }
+
+
+
+
+
+
+    public void addObserver(PositionObserver observer) {
+        this.observerList.add(observer);
+    }
+
+    public void removeObserver(PositionObserver observer) {
+        this.observerList.remove(observer);
+    }
+
+
+
+
+
+
+
+    public float getPosX() {
+        return posX;
+    }
+
+    public float getPosY() {
+        return posY;
     }
 }

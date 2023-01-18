@@ -12,7 +12,7 @@ public class Grass extends Tile {
         AssetRepository repo = AssetRepository.getInstance();
         image = repo.getTexture("grass");
         sprite = new Sprite(image);
-        System.out.println("Grass Tile created");
+        //System.out.println("Grass Tile created");
     }
 
     @Override

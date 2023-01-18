@@ -8,13 +8,14 @@ public class GameInput extends InputAdapter {
 
     public static ArrayList<keys> pressedKeys = new ArrayList<>();
 
+
     @Override
     public boolean keyDown(int keycode) {
 
         for (keys allowedKey : keys.values()) {
             if (allowedKey.getKeycode() == keycode && !pressedKeys.contains(allowedKey)) {
                 pressedKeys.add(allowedKey);
-                System.out.println("Key Down: " + allowedKey);
+                //System.out.println("Key Down: " + allowedKey);
             }
         }
 
@@ -29,12 +30,14 @@ public class GameInput extends InputAdapter {
         for (keys allowedKey : keys.values()) {
             if (allowedKey.getKeycode() == keycode && pressedKeys.contains(allowedKey)) {
                 pressedKeys.remove(allowedKey);
-                System.out.println("Key Up: " + allowedKey);
+                //System.out.println("Key Up: " + allowedKey);
             }
         }
 
         return true;
     }
+
+
 
     public enum keys {
         up(19),

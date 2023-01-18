@@ -39,6 +39,8 @@ public class Main extends ApplicationAdapter {
     private static final float TILE_WIDTH = 32;
     private static final float TILE_HEIGHT = 32;
 
+    private final int MAP_SEED = 93;
+
     @Override
     public void create() {
         AssetRepository repository = AssetRepository.getInstance();
@@ -67,7 +69,7 @@ public class Main extends ApplicationAdapter {
 
 
     private void fillFieldWithTiles() {
-        Random random = new Random();
+        Random random = new Random(MAP_SEED);
 
         float x_from = -1 * viewport.getMinWorldWidth() / 2;
         float x_to = viewport.getMaxWorldWidth();
@@ -107,7 +109,7 @@ public class Main extends ApplicationAdapter {
             x += TILE_WIDTH;
         }
 
-        
+
         for (GameObject gameObject : TileFactory.getInstance().getObjects()) {
             gameObjects.add(gameObject);
         }

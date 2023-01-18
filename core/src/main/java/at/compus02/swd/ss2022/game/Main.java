@@ -39,7 +39,6 @@ public class Main extends ApplicationAdapter {
     private static final float TILE_WIDTH = 32;
     private static final float TILE_HEIGHT = 32;
 
-    private final int MAP_SEED = 93;
 
     @Override
     public void create() {
@@ -69,7 +68,10 @@ public class Main extends ApplicationAdapter {
 
 
     private void fillFieldWithTiles() {
-        Random random = new Random(MAP_SEED);
+        Random random = new Random();
+
+        int seed = 93;
+        random.setSeed(seed);
 
         float x_from = -1 * viewport.getMinWorldWidth() / 2;
         float x_to = viewport.getMaxWorldWidth();
@@ -78,12 +80,7 @@ public class Main extends ApplicationAdapter {
 
         float x = x_from;
 
-
-
-        System.out.println("x_from: " + x_from);
-        System.out.println("x_to: " + x_to);
-        System.out.println("y_from: " + y_from);
-        System.out.println("y_to: " + y_to);
+        TileFactory tileFactory = TileFactory.getInstance();
 
         while (x < x_to){
             float y = y_from;
@@ -93,14 +90,14 @@ public class Main extends ApplicationAdapter {
                 int randomInt = random.nextInt(100);
 
                 if (randomInt < 15) {
-                    TileFactory.getInstance().create(GameObjectType.WATER).setPosition(x, y);
+                    tileFactory.create(GameObjectType.WATER).setPosition(x, y);
                     waterTilesPositions.add(new Position(x, y));
                 } else if (randomInt < 35) {
                     // add Grass below Bush --> looks better
-                    TileFactory.getInstance().create(GameObjectType.GRASS).setPosition(x, y);
-                    // TileFactory.getInstance().create(GameObjectType.BUSH).setPosition(i, j);
+                    tileFactory.create(GameObjectType.GRASS).setPosition(x, y);
+                    //TileFactory.getInstance().create(GameObjectType.BUSH).setPosition(x, y);
                 } else {
-                    TileFactory.getInstance().create(GameObjectType.GRASS).setPosition(x, y);
+                    tileFactory.create(GameObjectType.GRASS).setPosition(x, y);
                 }
 
                 y += TILE_HEIGHT;
@@ -109,16 +106,11 @@ public class Main extends ApplicationAdapter {
             x += TILE_WIDTH;
         }
 
-
         for (GameObject gameObject : TileFactory.getInstance().getObjects()) {
             gameObjects.add(gameObject);
         }
 
     }
-
-
-
-
 
 
 

@@ -39,8 +39,8 @@ public class Player implements GameObject {
 
     private final int berserkerModeDuration = 5000;
     private boolean isBuffActivatedAndVisible = false;
-    private final int buffOffsetX = 60;
-    private final int buffOffsetY = 115;
+    private final int buffOffsetX = -20;
+    private final int buffOffsetY = -100;
 
     private ArrayList<Position> waterTilesPositions = new ArrayList<>();
 

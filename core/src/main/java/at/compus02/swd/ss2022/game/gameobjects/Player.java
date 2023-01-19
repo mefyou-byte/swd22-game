@@ -51,7 +51,7 @@ public class Player implements GameObject {
         AssetRepository repo = AssetRepository.getInstance();
         image = repo.getTexture("player");
         sprite = new Sprite(image);
-        sprite.setScale((float) 0.03);
+        sprite.setScale((float) 0.1);
 
 
 
@@ -167,7 +167,6 @@ public class Player implements GameObject {
             //this.particleEffect = particleEffect;
 
 
-
             this.activateBerserkerMode();
         } else {
             //this.particleEffect.dispose();
@@ -180,8 +179,6 @@ public class Player implements GameObject {
 
 
 
-
-
     public void addObserver(PositionObserver observer) {
         this.observerList.add(observer);
     }
@@ -189,8 +186,6 @@ public class Player implements GameObject {
     public void removeObserver(PositionObserver observer) {
         this.observerList.remove(observer);
     }
-
-
 
 
 

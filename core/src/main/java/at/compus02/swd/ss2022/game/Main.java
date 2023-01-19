@@ -1,17 +1,15 @@
 package at.compus02.swd.ss2022.game;
 
+import at.compus02.swd.ss2022.game.GameObserver.EnemyPositionObserver;
 import at.compus02.swd.ss2022.game.GameObserver.PlayerPositionObserver;
 import at.compus02.swd.ss2022.game.assetRepository.AssetRepository;
 import at.compus02.swd.ss2022.game.common.ConsoleLogger;
-import at.compus02.swd.ss2022.game.common.Logger;
 import at.compus02.swd.ss2022.game.common.UserInterfaceLogger;
+import at.compus02.swd.ss2022.game.factories.EnemyFactory;
 import at.compus02.swd.ss2022.game.factories.GameObjectType;
 import at.compus02.swd.ss2022.game.factories.PlayerFactory;
 import at.compus02.swd.ss2022.game.factories.TileFactory;
-import at.compus02.swd.ss2022.game.gameobjects.GameObject;
-import at.compus02.swd.ss2022.game.gameobjects.Player;
-import at.compus02.swd.ss2022.game.gameobjects.Position;
-import at.compus02.swd.ss2022.game.gameobjects.Sign;
+import at.compus02.swd.ss2022.game.gameobjects.*;
 import at.compus02.swd.ss2022.game.input.GameInput;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -38,11 +36,9 @@ public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private float deltaAccumulator = 0;
     private BitmapFont font;
-    private Player player;
     private ArrayList<Position> waterTilesPositions = new ArrayList<>();
     public static final float TILE_WIDTH = 32;
     public static final float TILE_HEIGHT = 32;
-
     private UserInterfaceLogger userInterfaceLogger;
     private ConsoleLogger consoleLogger;
 
@@ -53,17 +49,11 @@ public class Main extends ApplicationAdapter {
         repository.preloadAssets();
         batch = new SpriteBatch();
 
-
         fillFieldWithTiles();
-
         createPlayer();
-
+        createEnemies();
         initializeLogger();
-
         initializeObservers();
-
-
-
 
         font = new BitmapFont();
         font.setColor(Color.WHITE);
@@ -74,6 +64,16 @@ public class Main extends ApplicationAdapter {
         PlayerFactory playerFactory = PlayerFactory.getInstance();
         playerFactory.create(GameObjectType.PLAYER);
         gameObjects.add(playerFactory.getObjects()[0]);
+    }
+
+    private void createEnemies() {
+        EnemyFactory enemyFactory = EnemyFactory.getInstance();
+        for (int i = 0; i < 5; i++) {
+            enemyFactory.create(GameObjectType.ENEMY);
+        }
+        for (GameObject object : enemyFactory.getObjects()) {
+            gameObjects.add(object);
+        }
     }
 
     private void initializeLogger() {
@@ -88,6 +88,9 @@ public class Main extends ApplicationAdapter {
         player.addObserver(playerPositionObserverUI);
         player.addObserver(playerPositionObserverConsole);
 
+        Enemy enemy = (Enemy) EnemyFactory.getInstance().getObjects()[0];
+        EnemyPositionObserver enemyPositionObserverConsole = new EnemyPositionObserver(consoleLogger);
+        enemy.addObserver(enemyPositionObserverConsole);
     }
 
     private void fillFieldWithTiles() {

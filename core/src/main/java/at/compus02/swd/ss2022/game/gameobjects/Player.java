@@ -16,10 +16,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import static at.compus02.swd.ss2022.game.Main.TILE_WIDTH;
 import static at.compus02.swd.ss2022.game.Main.TILE_HEIGHT;
@@ -42,12 +44,15 @@ public class Player implements GameObject {
     private final int buffOffsetX = -20;
     private final int buffOffsetY = -100;
 
-    private ArrayList<Position> waterTilesPositions = new ArrayList<>();
+
 
     private List<PositionObserver> observerList = new ArrayList<>();
 
 
     public Player() {
+
+
+
         AssetRepository repo = AssetRepository.getInstance();
         image = repo.getTexture("player");
         sprite = new Sprite(image);
@@ -63,12 +68,17 @@ public class Player implements GameObject {
 
         setPosition(-330, -330);
         System.out.println("Player created");
+
+
+
+
+
     }
 
     @Override
-    public void act(float delta, ArrayList<Position> waterTilesPositions) {
+    public void act(float delta) {
 
-        this.waterTilesPositions = waterTilesPositions;
+
 
         MoveUpCommand moveUp = new MoveUpCommand(this);
         MoveDownCommand moveDown = new MoveDownCommand(this);
@@ -98,13 +108,6 @@ public class Player implements GameObject {
 
         boolean isAllowedToMoveOnTile = true;
 
-        for (Position position : waterTilesPositions) {
-            if ((x >= position.X && x <= (position.X + TILE_WIDTH))
-                    && (y >= position.Y && y <= (position.Y + TILE_HEIGHT))) {
-                isAllowedToMoveOnTile = false;
-                return;
-            }
-        }
         if (!isAllowedToMoveOnTile)
             return;
 
@@ -131,7 +134,10 @@ public class Player implements GameObject {
         //    particleEffect.draw(batch);
         //}
 
+
         spriteBuff.draw(batch);
+    }
+    public void drawRadius(){
     }
 
     private void activateBerserkerMode() {

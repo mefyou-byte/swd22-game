@@ -16,7 +16,7 @@ public abstract class Tile implements GameObject {
     }
 
     @Override
-    public abstract void act(float delta, ArrayList<Position> waterTilesPositions);
+    public abstract void act(float delta);
 
     @Override
     public void setPosition(float x, float y) {

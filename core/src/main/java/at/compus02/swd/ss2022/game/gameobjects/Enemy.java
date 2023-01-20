@@ -32,7 +32,7 @@ public class Enemy implements GameObject {
     }
 
     @Override
-    public void act(float delta, ArrayList<Position> waterTilesPositions) {
+    public void act(float delta) {
     }
 
     @Override
@@ -60,6 +60,9 @@ public class Enemy implements GameObject {
 
     public void moveRandom () {
         Random random = new Random();
+
+
+
         int randomDirection = random.nextInt(4);
 
         switch (randomDirection) {

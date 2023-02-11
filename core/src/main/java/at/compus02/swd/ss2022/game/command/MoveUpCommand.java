@@ -12,6 +12,11 @@ public class MoveUpCommand implements Commands {
 
     @Override
     public void execute() {
+
+        if(this.player.sprite.getY() >= -65){
+            return;
+        }
+
         this.player.setPosition(this.player.sprite.getX(), this.player.sprite.getY() + 1);
     }
 }

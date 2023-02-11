@@ -14,6 +14,8 @@ public class PlayerPositionObserver implements PositionObserver {
     public void update(float x, float y) {
         //System.out.println("Player moved to: " + x + " " + y);
         this.logger.log("Player moved to: " + x + " " + y);
+
+        
     }
 }
 

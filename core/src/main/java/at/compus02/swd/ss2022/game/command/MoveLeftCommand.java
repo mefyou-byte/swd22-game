@@ -11,6 +11,12 @@ public class MoveLeftCommand implements Commands {
 
     @Override
     public void execute() {
+        
+        // not allowed
+        if(this.player.sprite.getX() <= -455){
+            return;
+        }
         this.player.setPosition(this.player.sprite.getX() - 1, this.player.sprite.getY());
+       
     }
 }

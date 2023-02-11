@@ -16,10 +16,8 @@ public class EnemyFactory extends Factory {
         return instance;
     }
 
-
     @Override
     public Enemy create(GameObjectType type) {
-
 
         Enemy enemy;
 
@@ -30,8 +28,6 @@ public class EnemyFactory extends Factory {
         }
 
         gameObjects.add(enemy);
-
-
 
         return enemy;
     }
@@ -44,6 +40,4 @@ public class EnemyFactory extends Factory {
     public GameObject[] getObjects() {
         return super.getObjects();
     }
-
-
 }

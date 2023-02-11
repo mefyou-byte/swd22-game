@@ -1,5 +1,6 @@
 package at.compus02.swd.ss2022.game.gameobjects;
 
+import at.compus02.swd.ss2022.game.GameObserver.PlayerHealthObserver;
 import at.compus02.swd.ss2022.game.GameObserver.PositionObserver;
 import at.compus02.swd.ss2022.game.assetRepository.AssetRepository;
 import at.compus02.swd.ss2022.game.command.MoveDownCommand;
@@ -7,24 +8,21 @@ import at.compus02.swd.ss2022.game.command.MoveLeftCommand;
 import at.compus02.swd.ss2022.game.command.MoveRightCommand;
 import at.compus02.swd.ss2022.game.command.MoveUpCommand;
 import at.compus02.swd.ss2022.game.command.SpaceBarCommand;
+import at.compus02.swd.ss2022.game.common.DistanceCalculator;
+import at.compus02.swd.ss2022.game.common.UserInterfaceLogger;
+import at.compus02.swd.ss2022.game.factories.EnemyFactory;
 import at.compus02.swd.ss2022.game.input.GameInput;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.LifecycleListener;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-import static at.compus02.swd.ss2022.game.Main.TILE_WIDTH;
-import static at.compus02.swd.ss2022.game.Main.TILE_HEIGHT;
-
-public class Player implements GameObject {
+public class Player implements Individual {
     private final Texture image;
     public final Sprite sprite;
 
@@ -43,6 +41,9 @@ public class Player implements GameObject {
     private final int circleOffsetY = -255;
 
     private List<PositionObserver> observerList = new ArrayList<>();
+    private PlayerHealthObserver healthObserver;
+
+    private int lifeCount = 3;
 
     public Player() {
 
@@ -64,6 +65,9 @@ public class Player implements GameObject {
         setPosition(-330, -330);
         System.out.println("Player created");
 
+        UserInterfaceLogger userInterfaceLogger = UserInterfaceLogger.getInstance();
+        this.healthObserver = new PlayerHealthObserver(userInterfaceLogger);
+        this.healthObserver.update(lifeCount);
     }
 
     @Override
@@ -75,6 +79,8 @@ public class Player implements GameObject {
         MoveLeftCommand moveLeft = new MoveLeftCommand(this);
         SpaceBarCommand spaceBar = new SpaceBarCommand(this);
 
+        if (GameInput.pressedKeys.size() > 0)
+            System.out.println(GameInput.pressedKeys.get(0));
         if (GameInput.pressedKeys.contains(GameInput.keys.up)) {
             moveUp.execute();
         }
@@ -90,6 +96,8 @@ public class Player implements GameObject {
         if (GameInput.pressedKeys.contains(GameInput.keys.space)) {
             spaceBar.execute();
         }
+
+        removeHealthIfEnemyIsTooClose();
     }
 
     @Override
@@ -110,7 +118,6 @@ public class Player implements GameObject {
         for (PositionObserver observer : this.observerList) {
             observer.update(x, y);
         }
-
     }
 
     @Override
@@ -180,5 +187,53 @@ public class Player implements GameObject {
 
     public float getPosY() {
         return posY;
+    }
+
+    public int getLifeCount() {
+        return this.lifeCount;
+    }
+
+    public void setLifeCount(int lifeCount) {
+        this.lifeCount = lifeCount;
+    }
+
+    public void killClosedEnemyIfInRange() {
+        EnemyFactory enemyFactory = EnemyFactory.getInstance();
+        for (GameObject gameObject : enemyFactory.getObjects()) {
+            Enemy enemy = (Enemy) gameObject;
+            float distance = DistanceCalculator.calculateDistanceBetweenPointsWithHypot(sprite.getX(), sprite.getY(),
+                    enemy.getPositionX(), enemy.getPositionY());
+            if (distance < 200f)
+                enemy.killEnemy();
+        }
+    }
+
+    @Override
+    public float getPositionX() {
+        return sprite.getX();
+    }
+
+    @Override
+    public float getPositionY() {
+        return sprite.getY();
+    }
+
+    public void setHealthObserver(PlayerHealthObserver observer) {
+        this.healthObserver = observer;
+    }
+
+    private void removeHealthIfEnemyIsTooClose() {
+        EnemyFactory enemyFactory = EnemyFactory.getInstance();
+        for (GameObject gameObject : enemyFactory.getObjects()) {
+            Enemy enemy = (Enemy) gameObject;
+            float distance = DistanceCalculator.calculateDistanceBetweenPointsWithHypot(sprite.getX(), sprite.getY(),
+                    enemy.getPositionX(), enemy.getPositionY());
+            System.out.println("Distance: " + distance);
+            if (distance < 150f) {
+                lifeCount -= 1;
+                this.healthObserver.update(lifeCount);
+            }
+        }
+
     }
 }

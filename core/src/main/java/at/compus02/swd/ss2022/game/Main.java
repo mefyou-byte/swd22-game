@@ -1,6 +1,7 @@
 package at.compus02.swd.ss2022.game;
 
 import at.compus02.swd.ss2022.game.GameObserver.EnemyPositionObserver;
+import at.compus02.swd.ss2022.game.GameObserver.PlayerHealthObserver;
 import at.compus02.swd.ss2022.game.GameObserver.PlayerPositionObserver;
 import at.compus02.swd.ss2022.game.assetRepository.AssetRepository;
 import at.compus02.swd.ss2022.game.common.ConsoleLogger;
@@ -42,7 +43,6 @@ public class Main extends ApplicationAdapter {
     private UserInterfaceLogger userInterfaceLogger;
     private ConsoleLogger consoleLogger;
 
-
     @Override
     public void create() {
         AssetRepository repository = AssetRepository.getInstance();
@@ -82,9 +82,8 @@ public class Main extends ApplicationAdapter {
     }
 
     private void initializeObservers() {
-
         Player player = (Player) PlayerFactory.getInstance().getObjects()[0];
-        PlayerPositionObserver playerPositionObserverUI = new PlayerPositionObserver(userInterfaceLogger);
+        PlayerPositionObserver playerPositionObserverUI = new PlayerPositionObserver(consoleLogger);
         PlayerPositionObserver playerPositionObserverConsole = new PlayerPositionObserver(consoleLogger);
         player.addObserver(playerPositionObserverUI);
         player.addObserver(playerPositionObserverConsole);
@@ -109,11 +108,10 @@ public class Main extends ApplicationAdapter {
 
         TileFactory tileFactory = TileFactory.getInstance();
 
-        while (x < x_to){
+        while (x < x_to) {
             float y = y_from;
 
-
-            while (y < y_to){
+            while (y < y_to) {
 
                 tileFactory.create(GameObjectType.GRASS).setPosition(x, y);
                 y += TILE_HEIGHT;
@@ -121,35 +119,22 @@ public class Main extends ApplicationAdapter {
 
             x += TILE_WIDTH;
 
-
         }
-        for( float i = x_from; i< x_to; i++){
+        for (float i = x_from; i < x_to; i++) {
             tileFactory.create(GameObjectType.WATER).setPosition(x_from, i);
             tileFactory.create(GameObjectType.WATER).setPosition(i, x_from);
 
         }
-        for( float i = -480; i< x_to; i++){
+        for (float i = -480; i < x_to; i++) {
             tileFactory.create(GameObjectType.WATER).setPosition(208, i);
             tileFactory.create(GameObjectType.WATER).setPosition(i, 208);
         }
-
-
-
-
-
-
-
-
-
-
 
         for (GameObject gameObject : TileFactory.getInstance().getObjects()) {
             gameObjects.add(gameObject);
         }
 
-
     }
-
 
     private void act(float delta) {
         for (GameObject gameObject : gameObjects) {

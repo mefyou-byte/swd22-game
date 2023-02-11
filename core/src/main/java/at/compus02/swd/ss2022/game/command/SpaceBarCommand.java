@@ -13,6 +13,7 @@ public class SpaceBarCommand implements Commands {
     @Override
     public void execute() {
         this.player.setIsBuffActivatedAndVisible(true);
+        this.player.killClosedEnemyIfInRange();
     }
 
 }

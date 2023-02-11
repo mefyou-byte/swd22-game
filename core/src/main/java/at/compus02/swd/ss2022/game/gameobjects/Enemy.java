@@ -11,8 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-
-public class Enemy implements GameObject {
+public class Enemy implements Individual {
     private final Texture image;
     private final Sprite sprite;
 
@@ -25,7 +24,6 @@ public class Enemy implements GameObject {
         image = repo.getTexture("enemy");
         sprite = new Sprite(image);
         sprite.setScale((float) 0.125);
-
 
         setPosition(-100, -100);
         System.out.println("Enemy created");
@@ -57,11 +55,8 @@ public class Enemy implements GameObject {
 
     }
 
-
-    public void moveRandom () {
+    public void moveRandom() {
         Random random = new Random();
-
-
 
         int randomDirection = random.nextInt(4);
 
@@ -73,7 +68,7 @@ public class Enemy implements GameObject {
                 moveDown();
                 break;
             case 2:
-               moveRight();
+                moveRight();
                 break;
             case 3:
                 moveLeft();
@@ -97,11 +92,25 @@ public class Enemy implements GameObject {
         setPosition(sprite.getX() - 10, sprite.getY());
     }
 
-
     public void addObserver(PositionObserver observer) {
         observers.add(observer);
     }
+
     public void removeObserver(PositionObserver observer) {
         observers.remove(observer);
+    }
+
+    @Override
+    public float getPositionX() {
+        return sprite.getX();
+    }
+
+    @Override
+    public float getPositionY() {
+        return sprite.getY();
+    }
+
+    public void killEnemy() {
+        sprite.setAlpha(0);
     }
 }

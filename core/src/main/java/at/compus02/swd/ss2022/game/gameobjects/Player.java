@@ -1,6 +1,5 @@
 package at.compus02.swd.ss2022.game.gameobjects;
 
-
 import at.compus02.swd.ss2022.game.GameObserver.PositionObserver;
 import at.compus02.swd.ss2022.game.assetRepository.AssetRepository;
 import at.compus02.swd.ss2022.game.command.MoveDownCommand;
@@ -15,7 +14,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
@@ -26,16 +24,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import static at.compus02.swd.ss2022.game.Main.TILE_WIDTH;
 import static at.compus02.swd.ss2022.game.Main.TILE_HEIGHT;
 
-
 public class Player implements GameObject {
     private final Texture image;
     public final Sprite sprite;
 
-
-    //private ParticleEffect particleEffect;
+    // private ParticleEffect particleEffect;
     private float posX;
     private float posY;
-
 
     public final Sprite spriteBuff;
     public final Sprite spriteCircle;
@@ -47,13 +42,9 @@ public class Player implements GameObject {
     private final int circleOffsetX = -255;
     private final int circleOffsetY = -255;
 
-
-
     private List<PositionObserver> observerList = new ArrayList<>();
 
     public Player() {
-
-
 
         AssetRepository repo = AssetRepository.getInstance();
         Texture imageCircle = repo.getTexture("circle");
@@ -73,16 +64,10 @@ public class Player implements GameObject {
         setPosition(-330, -330);
         System.out.println("Player created");
 
-
-
-
-
     }
 
     @Override
     public void act(float delta) {
-
-
 
         MoveUpCommand moveUp = new MoveUpCommand(this);
         MoveDownCommand moveDown = new MoveDownCommand(this);
@@ -120,7 +105,6 @@ public class Player implements GameObject {
 
         spriteCircle.setPosition(x + circleOffsetX, y + circleOffsetY);
         sprite.setPosition(x, y);
-
         spriteBuff.setPosition(x + buffOffsetX, y + buffOffsetY);
 
         for (PositionObserver observer : this.observerList) {
@@ -134,21 +118,18 @@ public class Player implements GameObject {
         spriteCircle.draw(batch);
         sprite.draw(batch);
 
-
         // particleEffect - not working
-        //if (particleEffect != null) {
-        //    particleEffect.draw(batch);
-        //}
-
+        // if (particleEffect != null) {
+        // particleEffect.draw(batch);
+        // }
 
         spriteBuff.draw(batch);
     }
-    public void drawRadius(){
+
+    public void drawRadius() {
     }
 
     private void activateBerserkerMode() {
-
-
 
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
@@ -160,7 +141,6 @@ public class Player implements GameObject {
         };
         timer.schedule(task, berserkerModeDuration);
 
-
     }
 
     public void setIsBuffActivatedAndVisible(boolean value) {
@@ -170,26 +150,21 @@ public class Player implements GameObject {
 
             this.spriteBuff.setAlpha(1);
 
-
             // particleEffect - not working
-            //ParticleEffect particleEffect = new ParticleEffect();
-            //particleEffect.load(Gdx.files.internal("berserk.p"), Gdx.files.internal(""));
-            //particleEffect.getEmitters().first().setPosition(posX, posY);
-            //particleEffect.start();
-            //this.particleEffect = particleEffect;
-
+            // ParticleEffect particleEffect = new ParticleEffect();
+            // particleEffect.load(Gdx.files.internal("berserk.p"), Gdx.files.internal(""));
+            // particleEffect.getEmitters().first().setPosition(posX, posY);
+            // particleEffect.start();
+            // this.particleEffect = particleEffect;
 
             this.activateBerserkerMode();
         } else {
-            //this.particleEffect.dispose();
+            // this.particleEffect.dispose();
 
             this.spriteBuff.setAlpha(0);
         }
 
-
     }
-
-
 
     public void addObserver(PositionObserver observer) {
         this.observerList.add(observer);
@@ -198,8 +173,6 @@ public class Player implements GameObject {
     public void removeObserver(PositionObserver observer) {
         this.observerList.remove(observer);
     }
-
-
 
     public float getPosX() {
         return posX;

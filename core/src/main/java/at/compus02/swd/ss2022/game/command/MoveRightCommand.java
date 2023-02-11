@@ -11,6 +11,11 @@ public class MoveRightCommand implements Commands {
 
     @Override
     public void execute() {
+
+        if(this.player.sprite.getX() >= -60){
+            return;
+        }
+
         this.player.setPosition(this.player.sprite.getX() + 1, this.player.sprite.getY());
     }
 }

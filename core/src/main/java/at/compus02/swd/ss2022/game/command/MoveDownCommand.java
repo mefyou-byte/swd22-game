@@ -14,6 +14,9 @@ public class MoveDownCommand implements Commands {
 
     @Override
     public void execute() {
+        if(this.player.sprite.getY() <= -450){
+            return;
+        }
         this.player.setPosition(this.player.sprite.getX(), this.player.sprite.getY() - 1);
     }
 }

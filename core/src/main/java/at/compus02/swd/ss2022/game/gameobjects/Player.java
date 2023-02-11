@@ -36,30 +36,34 @@ public class Player implements GameObject {
 
 
     public final Sprite spriteBuff;
+    public final Sprite spriteCircle;
 
     private final int berserkerModeDuration = 5000;
     private boolean isBuffActivatedAndVisible = false;
-    private final int buffOffsetX = -20;
+    private final int buffOffsetX = -17;
     private final int buffOffsetY = -100;
+    private final int circleOffsetX = -255;
+    private final int circleOffsetY = -255;
 
     private ArrayList<Position> waterTilesPositions = new ArrayList<>();
 
     private List<PositionObserver> observerList = new ArrayList<>();
 
-
     public Player() {
         AssetRepository repo = AssetRepository.getInstance();
+        Texture imageCircle = repo.getTexture("circle");
+        spriteCircle = new Sprite(imageCircle);
+        spriteCircle.setScale((float) 0.1);
+        spriteCircle.setAlpha(0.5f);
+
         image = repo.getTexture("player");
         sprite = new Sprite(image);
         sprite.setScale((float) 0.1);
-
-
 
         Texture imageBuff = repo.getTexture("fire");
         spriteBuff = new Sprite(imageBuff);
         spriteBuff.setScale((float) 0.025);
         spriteBuff.setAlpha(0);
-
 
         setPosition(-330, -330);
         System.out.println("Player created");
@@ -110,6 +114,8 @@ public class Player implements GameObject {
 
         posX = x;
         posY = y;
+
+        spriteCircle.setPosition(x + circleOffsetX, y + circleOffsetY);
         sprite.setPosition(x, y);
 
         spriteBuff.setPosition(x + buffOffsetX, y + buffOffsetY);
@@ -122,7 +128,7 @@ public class Player implements GameObject {
 
     @Override
     public void draw(SpriteBatch batch) {
-
+        spriteCircle.draw(batch);
         sprite.draw(batch);
 
 

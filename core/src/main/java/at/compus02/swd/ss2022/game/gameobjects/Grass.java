@@ -16,7 +16,7 @@ public class Grass extends Tile {
     }
 
     @Override
-    public void act(float delta, ArrayList<Position> waterTilesPositions) {
+    public void act(float delta) {
         // TODO Auto-generated method stub
     }
 

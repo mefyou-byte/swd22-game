@@ -19,7 +19,7 @@ public class Sign implements GameObject {
     }
 
     @Override
-    public void act(float delta, ArrayList<Position> waterTilesPositions) {
+    public void act(float delta) {
 
     }
 

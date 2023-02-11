@@ -82,6 +82,7 @@ public class Main extends ApplicationAdapter {
     }
 
     private void initializeObservers() {
+
         Player player = (Player) PlayerFactory.getInstance().getObjects()[0];
         PlayerPositionObserver playerPositionObserverUI = new PlayerPositionObserver(userInterfaceLogger);
         PlayerPositionObserver playerPositionObserverConsole = new PlayerPositionObserver(consoleLogger);
@@ -111,26 +112,36 @@ public class Main extends ApplicationAdapter {
         while (x < x_to){
             float y = y_from;
 
+
             while (y < y_to){
 
-                int randomInt = random.nextInt(100);
-
-                if (randomInt < 15) {
-                    tileFactory.create(GameObjectType.WATER).setPosition(x, y);
-                    waterTilesPositions.add(new Position(x, y));
-                } else if (randomInt < 35) {
-                    // add Grass below Bush --> looks better
-                    tileFactory.create(GameObjectType.GRASS).setPosition(x, y);
-                    //TileFactory.getInstance().create(GameObjectType.BUSH).setPosition(x, y);
-                } else {
-                    tileFactory.create(GameObjectType.GRASS).setPosition(x, y);
-                }
-
+                tileFactory.create(GameObjectType.GRASS).setPosition(x, y);
                 y += TILE_HEIGHT;
             }
 
             x += TILE_WIDTH;
+
+
         }
+        for( float i = x_from; i< x_to; i++){
+            tileFactory.create(GameObjectType.WATER).setPosition(x_from, i);
+            tileFactory.create(GameObjectType.WATER).setPosition(i, x_from);
+
+        }
+        for( float i = -480; i< x_to; i++){
+            tileFactory.create(GameObjectType.WATER).setPosition(208, i);
+            tileFactory.create(GameObjectType.WATER).setPosition(i, 208);
+        }
+
+
+
+
+
+
+
+
+
+
 
         for (GameObject gameObject : TileFactory.getInstance().getObjects()) {
             gameObjects.add(gameObject);
@@ -142,7 +153,7 @@ public class Main extends ApplicationAdapter {
 
     private void act(float delta) {
         for (GameObject gameObject : gameObjects) {
-            gameObject.act(delta, waterTilesPositions);
+            gameObject.act(delta);
         }
     }
 

@@ -17,12 +17,10 @@ public class TileFactory extends Factory {
         return instance;
     }
 
-
-    //TODO - Change create that it has input for x y position ?
     @Override
     public Tile create(GameObjectType type) {
 
-        Tile tile = null;
+        Tile tile;
 
         switch (type) {
             case GRASS:
@@ -35,12 +33,10 @@ public class TileFactory extends Factory {
                 tile = new Bush();
                 break;
             default:
-                System.out.println("Wrong GameObjectType: " + type);
+                throw new IllegalArgumentException("Invalid GameObjectType: " + type);
         }
 
-        if (tile != null) {
-            gameObjects.add(tile);
-        }
+        gameObjects.add(tile);
 
         return tile;
     }

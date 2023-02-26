@@ -14,7 +14,7 @@ public class GameInput extends InputAdapter {
         for (keys allowedKey : keys.values()) {
             if (allowedKey.getKeycode() == keycode && !pressedKeys.contains(allowedKey)) {
                 pressedKeys.add(allowedKey);
-                System.out.println("Key Down: " + allowedKey);
+                // System.out.println("Key Down: " + allowedKey);
             }
         }
 
@@ -29,7 +29,7 @@ public class GameInput extends InputAdapter {
         for (keys allowedKey : keys.values()) {
             if (allowedKey.getKeycode() == keycode && pressedKeys.contains(allowedKey)) {
                 pressedKeys.remove(allowedKey);
-                System.out.println("Key Up: " + allowedKey);
+                // System.out.println("Key Up: " + allowedKey);
             }
         }
 
@@ -40,7 +40,8 @@ public class GameInput extends InputAdapter {
         up(19),
         down(20),
         left(21),
-        right(22);
+        right(22),
+        space(62);
 
         private final int keycode;
 

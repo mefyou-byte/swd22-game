@@ -4,8 +4,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public interface GameObject {
 
-    String image = null;
-
     void act(float delta);
 
     void setPosition(float x, float y);
